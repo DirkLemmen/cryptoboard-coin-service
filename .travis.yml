@@ -3,7 +3,8 @@ jdk:
   - openjdk16
 services:
   - docker
-
+before_install:
+- chmod +x mvnw
 jobs:
   include:
     - stage: build_java_package
