@@ -1,11 +1,19 @@
 language: java
-services:
-  - docker
 jdk:
   - openjdk16
-script:
-  - ./mvnw clean install
+services:
+  - docker
+jobs:
+  include:
+    - stage: build_java_package
+    script:
+      - mvn clean package
+
+      -stage: build_docker
+      script:
+        - docker build -f Dockerfile -t cryptoboard-coin-service:latest .
+        - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
+        - docker tag cryptoboard-coin-service "$DOCKER_HUB_USERNAME"/cryptoboard-coin-service
+        - docker push "$DOCKER_HUB_USERNAME"/cryptoboard-coin-service
 before_install:
   - chmod +x mvnw
-  - docker build -t cryptoboard-coin-service:latest .
-  - docker run -p 8081:8080 cryptoboard-coin-service
