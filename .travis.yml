@@ -5,3 +5,4 @@ script:
   - ./mvnw clean install
 before_install:
   - chmod +x mvnw
+  - docker build -t cryptoboard-coin-service:latest .
