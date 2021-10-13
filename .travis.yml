@@ -3,17 +3,16 @@ jdk:
   - openjdk16
 services:
   - docker
+
 jobs:
   include:
     - stage: build_java_package
-    script:
-      - mvn clean package
+      script:
+        - mvn clean package
 
-      -stage: build_docker
+    - stage: build_docker
       script:
         - docker build -f Dockerfile -t cryptoboard-coin-service:latest .
         - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
         - docker tag cryptoboard-coin-service "$DOCKER_HUB_USERNAME"/cryptoboard-coin-service
         - docker push "$DOCKER_HUB_USERNAME"/cryptoboard-coin-service
-before_install:
-  - chmod +x mvnw
