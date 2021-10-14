@@ -14,7 +14,7 @@ jobs:
   include:
     - stage: code_quality_check
       script:
-        - mvn clean verify sonar:sonar -Pcoverage
+        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=DirkLemmen_cryptoboard-coin-service
     - stage: build_java_package
       script:
         - mvn clean package
