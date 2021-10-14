@@ -4,7 +4,7 @@ jdk:
 services:
   - docker
 before_install:
-- chmod +x mvnwz
+- chmod +x mvnw
 addons:
   sonarcloud:
     organization: "dirklemmen"
