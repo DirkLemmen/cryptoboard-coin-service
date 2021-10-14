@@ -4,9 +4,17 @@ jdk:
 services:
   - docker
 before_install:
-- chmod +x mvnw
+- chmod +x mvnwz
+addons:
+  sonarcloud:
+    organization: "dirklemmen"
+    token:
+      secure: $SONAR_CLOUD_ID # encrypted value of your token
 jobs:
   include:
+    - stage: code_quality_check
+      script:
+        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
     - stage: build_java_package
       script:
         - mvn clean package
