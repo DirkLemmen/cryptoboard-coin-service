@@ -4,6 +4,8 @@ jdk:
 services:
   - docker
 before_install:
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  - docker login -u "$HEROKU_USERNAME" --password=$(HEROKU_TOKEN) registry.heroku.com
   - chmod +x mvnw
 addons:
   sonarcloud:
@@ -26,9 +28,9 @@ jobs:
         - docker push "$DOCKER_HUB_USERNAME"/cryptoboard-coin-service
 
     - stage: deployment
-      deploy:
-        provider: heroku
-        app: cryptoboard-coin-service
-        api_key: $HEROKU_TOKEN
+      script:
+        - heroku container:push web -a cryptoboard-coin-service
+        - heroku container:release web -a cryptoboard-coin-service
+
 
 
