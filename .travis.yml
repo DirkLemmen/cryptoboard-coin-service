@@ -4,7 +4,7 @@ jdk:
 services:
   - docker
 before_install:
-- chmod +x mvnw
+  - chmod +x mvnw
 addons:
   sonarcloud:
     organization: "dirklemmen"
@@ -24,3 +24,12 @@ jobs:
         - echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
         - docker tag cryptoboard-coin-service "$DOCKER_HUB_USERNAME"/cryptoboard-coin-service
         - docker push "$DOCKER_HUB_USERNAME"/cryptoboard-coin-service
+
+    - stage: deployment
+      script:
+        - echo "$HEROKU_USERNAME"
+        - echo "$HEROKU_TOKEN" | heroku login
+        - docker tag cryptoboard-coin-service registry.heroku.com/cryptoboard-coin-service/main
+        - docker push registry.heroku.com/cryptoboard-coin-service/main
+
+
