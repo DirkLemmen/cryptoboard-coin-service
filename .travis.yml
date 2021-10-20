@@ -26,10 +26,11 @@ jobs:
         - docker push "$DOCKER_HUB_USERNAME"/cryptoboard-coin-service
 
     - stage: deployment
-      script:
-        - echo "$HEROKU_USERNAME"
-        - echo "$HEROKU_TOKEN" | heroku login -i
-        - docker tag cryptoboard-coin-service registry.heroku.com/cryptoboard-coin-service/main
-        - docker push registry.heroku.com/cryptoboard-coin-service/main
+      deploy:
+        provider: heroku
+        api_key:
+          secure: $HEROKU_TOKEN
+          app:
+            main: cryptoboard-coin-service
 
 
