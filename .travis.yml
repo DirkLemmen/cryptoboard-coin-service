@@ -29,8 +29,9 @@ jobs:
 
     - stage: deployment
       script:
+        - heroku login -i
         - echo "$HEROKU_USERNAME"
-        - echo "$HEROKU_PASSWORD" | heroku login
+        - echo "$HEROKU_PASSWORD"
         - heroku container:login
         - heroku container:push web -a cryptoboard-coin-service
         - heroku container:release web -a cryptoboard-coin-service
