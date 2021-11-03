@@ -1,6 +1,8 @@
 package com.example.cryptoboardcoinservice.coins;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +24,4 @@ public class CoinController {
     {
         return coinService.GetCoins();
     }
-
-//    public List<Coin> coinFallback(){
-//        return Arrays.asList(new Coin());
-//    }
-
 }

@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableCaching
 @EnableScheduling
-@EnableEurekaClient
 public class CryptoboardCoinServiceApplication {
 
 	public static void main(String[] args) {
